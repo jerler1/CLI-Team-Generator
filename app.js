@@ -13,28 +13,56 @@ const render = require("./lib/htmlRenderer");
 
 // Initializes the program.
 function init() {
-  promptUser();
+  let employeeRoster = [];
+  makeManager(employeeRoster);
 }
 
-// Prompts the user for a manger.
-function promptUser() {
-  inquirer.prompt([
-    {
-      type: "input",
-      message: "What is your managers name?",
-      name: "managerName",
-      default: "Susy",
-      validate: validation.validLetter,
-    },
-    {
+// Prompts the user for a manger and information.
+// Validation is active for all questions.
+// Default values are inputted so that the user can quickly enter values.
+function makeManager(employeeRoster) {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "What is your managers name?",
+        name: "managerName",
+        default: "Susy",
+        validate: validation.validLetter,
+      },
+      {
         type: "input",
         message: "What is your managers id?",
         name: "managerId",
         default: "100",
         validate: validation.validNumber,
-    }
-  ]);
+      },
+      {
+        type: "input",
+        message: "What is your managers email?",
+        name: "managerEmail",
+        default: "thebest@around.com",
+        validate: validation.validEmail,
+      },
+      {
+        type: "input",
+        message: "what is your managers office number?",
+        name: "managerOfficeNumber",
+        default: "5",
+        validate: validation.validNumber,
+      },
+    ])
+    // Pushing the manager to the employee roster.
+    // After pushing the make employee function is ran.
+    .then((response) => {
+      employeeRoster.push(response);
+      makeEmployee(employeeRoster);
+    });
 }
+
+// Make employee makes either an engineer or intern, or stops the making employee process.
+
+function makeEmployee(employeeRoster) {}
 
 init();
 // Write code to use inquirer to gather information about the development team members,
