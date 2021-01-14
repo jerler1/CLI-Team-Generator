@@ -4,13 +4,39 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
+const validation = require("./lib/validation");
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+// Initializes the program.
+function init() {
+  promptUser();
+}
 
+// Prompts the user for a manger.
+function promptUser() {
+  inquirer.prompt([
+    {
+      type: "input",
+      message: "What is your managers name?",
+      name: "managerName",
+      default: "Susy",
+      validate: validation.validLetter,
+    },
+    {
+        type: "input",
+        message: "What is your managers id?",
+        name: "managerId",
+        default: "100",
+        validate: validation.validNumber,
+    }
+  ]);
+}
+
+init();
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
