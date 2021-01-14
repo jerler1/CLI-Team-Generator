@@ -157,7 +157,32 @@ function makeEmployee(employeeRoster) {
 }
 
 // Function to render the information into html.
-function renderEmployee(employeeRoster) {}
+function renderEmployee(employeeRoster) {
+  if (fs.existsSync(outputPath)) {
+    fs.writeFileSync(
+      outputPath,
+      render(employeeRoster, (err) => {
+        if (err) {
+          console.log("There was an error!");
+        } else {
+          console.log("File was made successfully!");
+        }
+      })
+    );
+  } else {
+    fs.mkdirSync(outputPath);
+    fs.writeFileSync(
+      outputPath,
+      render(employeeRoster, (err) => {
+        if (err) {
+          console.log("There was an error!");
+        } else {
+          console.log("File was made successfully!");
+        }
+      })
+    );
+  }
+}
 
 init();
 // Write code to use inquirer to gather information about the development team members,
