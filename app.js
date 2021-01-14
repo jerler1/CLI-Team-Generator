@@ -46,7 +46,7 @@ function makeManager(employeeRoster) {
       },
       {
         type: "input",
-        message: "what is your managers office number?",
+        message: "What is your managers office number?",
         name: "managerOfficeNumber",
         default: "5",
         validate: validation.validNumber,
@@ -62,7 +62,89 @@ function makeManager(employeeRoster) {
 
 // Make employee makes either an engineer or intern, or stops the making employee process.
 
-function makeEmployee(employeeRoster) {}
+function makeEmployee(employeeRoster) {
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        message: "What type of employee do you want to add to the team?",
+        name: "newEmployeeType",
+        choices: ["Intern", "Engineer", "I'm done building my team"],
+      },
+      {
+        type: "input",
+        message: "What is your engineer's name?",
+        name: "engineerName",
+        default: "Steve",
+        validate: validation.validLetter,
+        when: (choices) => choices.newEmployeeType === "Engineer",
+      },
+      {
+        type: "input",
+        message: "What is your engineer's id?",
+        name: "engineerId",
+        default: "3",
+        validate: validation.validNumber,
+        when: (choices) => choices.newEmployeeType === "Engineer",
+      },
+      {
+        type: "input",
+        message: "What is your engineer's email?",
+        name: "engineerEmail",
+        default: "engineer4you@me.com",
+        validation: validation.validEmail,
+        when: (choices) => choices.newEmployeeType === "Engineer",
+      },
+      {
+        type: "input",
+        message: "What is your engineer's github?",
+        name: "engineerGithub",
+        default: "DeveloperSteve",
+        validate: validation.validLetter,
+        when: (choices) => choices.newEmployeeType === "Engineer",
+      },
+      {
+        type: "input",
+        message: "What is your intern's name?",
+        name: "internName",
+        default: "Jeff",
+        validate: validation.validLetter,
+        when: (choices) => choices.newEmployeeType === "Intern",
+      },
+      {
+        type: "input",
+        message: "What is your intern's id?",
+        name: "internId",
+        default: "6",
+        validate: validation.validNumber,
+        when: (choices) => choices.newEmployeeType === "Intern",
+      },
+      {
+        type: "input",
+        message: "What is your intern's email?",
+        name: "internEmail",
+        default: "learning4you@me.com",
+        validation: validation.validEmail,
+        when: (choices) => choices.newEmployeeType === "Intern",
+      },
+      {
+        type: "input",
+        message: "What is your intern's school?",
+        name: "internSchool",
+        default: "Ga Tech",
+        validate: validation.validLetter,
+        when: (choices) => choices.newEmployeeType === "Intern",
+      },
+    ])
+    .then(function (response) {
+      employeeRoster.push(response);
+      if (response.newEmployeeType === "I'm done building my team") {
+        console.log("hi");
+      } else {
+        makeEmployee(employeeRoster);
+      }
+    });
+}
 
 init();
 // Write code to use inquirer to gather information about the development team members,
