@@ -10,6 +10,8 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+const { Separator } = require("inquirer");
+const { sep } = require("path");
 
 // Initializes the program.
 function init() {
@@ -69,7 +71,15 @@ function makeEmployee(employeeRoster) {
         type: "list",
         message: "What type of employee do you want to add to the team?",
         name: "newEmployeeType",
-        choices: ["Intern", "Engineer", "I'm done building my team"],
+        choices: [
+          new Separator("    "),
+          "Intern",
+          new Separator("--------"),
+          "Engineer",
+          new Separator("--------"),
+          "I'm done building my team",
+          new Separator("   "),
+        ],
       },
       {
         type: "input",
@@ -139,12 +149,15 @@ function makeEmployee(employeeRoster) {
     .then(function (response) {
       employeeRoster.push(response);
       if (response.newEmployeeType === "I'm done building my team") {
-        console.log("hi");
+        renderEmployee(employeeRoster);
       } else {
         makeEmployee(employeeRoster);
       }
     });
 }
+
+// Function to render the information into html.
+function renderEmployee(employeeRoster) {}
 
 init();
 // Write code to use inquirer to gather information about the development team members,
