@@ -28,28 +28,28 @@ function makeManager(employeeRoster) {
       {
         type: "input",
         message: "What is your managers name?",
-        name: "managerName",
+        name: "name",
         default: "Susy",
         validate: validation.validLetter,
       },
       {
         type: "input",
         message: "What is your managers id?",
-        name: "managerId",
+        name: "id",
         default: "100",
         validate: validation.validNumber,
       },
       {
         type: "input",
         message: "What is your managers email?",
-        name: "managerEmail",
+        name: "email",
         default: "thebest@around.com",
         validate: validation.validEmail,
       },
       {
         type: "input",
         message: "What is your managers office number?",
-        name: "managerOfficeNumber",
+        name: "officeNumber",
         default: "5",
         validate: validation.validNumber,
       },
@@ -57,7 +57,13 @@ function makeManager(employeeRoster) {
     // Pushing the manager to the employee roster.
     // After pushing the make employee function is ran.
     .then((response) => {
-      employeeRoster.push(response);
+      const newManager = new Manager(
+        response.name,
+        response.id,
+        response.email,
+        response.officeNumber
+      );
+      employeeRoster.push(newManager);
       makeEmployee(employeeRoster);
     });
 }
@@ -84,7 +90,7 @@ function makeEmployee(employeeRoster) {
       {
         type: "input",
         message: "What is your engineer's name?",
-        name: "engineerName",
+        name: "name",
         default: "Steve",
         validate: validation.validLetter,
         when: (choices) => choices.newEmployeeType === "Engineer",
@@ -92,7 +98,7 @@ function makeEmployee(employeeRoster) {
       {
         type: "input",
         message: "What is your engineer's id?",
-        name: "engineerId",
+        name: "id",
         default: "3",
         validate: validation.validNumber,
         when: (choices) => choices.newEmployeeType === "Engineer",
@@ -100,7 +106,7 @@ function makeEmployee(employeeRoster) {
       {
         type: "input",
         message: "What is your engineer's email?",
-        name: "engineerEmail",
+        name: "email",
         default: "engineer4you@me.com",
         validation: validation.validEmail,
         when: (choices) => choices.newEmployeeType === "Engineer",
@@ -108,7 +114,7 @@ function makeEmployee(employeeRoster) {
       {
         type: "input",
         message: "What is your engineer's github?",
-        name: "engineerGithub",
+        name: "github",
         default: "DeveloperSteve",
         validate: validation.validLetter,
         when: (choices) => choices.newEmployeeType === "Engineer",
@@ -116,7 +122,7 @@ function makeEmployee(employeeRoster) {
       {
         type: "input",
         message: "What is your intern's name?",
-        name: "internName",
+        name: "name",
         default: "Jeff",
         validate: validation.validLetter,
         when: (choices) => choices.newEmployeeType === "Intern",
@@ -124,7 +130,7 @@ function makeEmployee(employeeRoster) {
       {
         type: "input",
         message: "What is your intern's id?",
-        name: "internId",
+        name: "id",
         default: "6",
         validate: validation.validNumber,
         when: (choices) => choices.newEmployeeType === "Intern",
@@ -132,7 +138,7 @@ function makeEmployee(employeeRoster) {
       {
         type: "input",
         message: "What is your intern's email?",
-        name: "internEmail",
+        name: "email",
         default: "learning4you@me.com",
         validation: validation.validEmail,
         when: (choices) => choices.newEmployeeType === "Intern",
@@ -140,17 +146,32 @@ function makeEmployee(employeeRoster) {
       {
         type: "input",
         message: "What is your intern's school?",
-        name: "internSchool",
+        name: "school",
         default: "Ga Tech",
         validate: validation.validLetter,
         when: (choices) => choices.newEmployeeType === "Intern",
       },
     ])
     .then(function (response) {
-      employeeRoster.push(response);
       if (response.newEmployeeType === "I'm done building my team") {
         renderEmployee(employeeRoster);
+      } else if (response.newEmployeeType === "Intern") {
+        const newIntern = new Intern(
+          response.name,
+          response.id,
+          response.email,
+          response.school
+        );
+        employeeRoster.push(newIntern);
+        makeEmployee(employeeRoster);
       } else {
+        const newEngineer = new Engineer(
+          response.name,
+          response.id,
+          response.email,
+          response.school
+        );
+        employeeRoster.push(newEngineer);
         makeEmployee(employeeRoster);
       }
     });
@@ -158,29 +179,30 @@ function makeEmployee(employeeRoster) {
 
 // Function to render the information into html.
 function renderEmployee(employeeRoster) {
+  console.log(employeeRoster);
   if (fs.existsSync(outputPath)) {
-    fs.writeFileSync(
-      outputPath,
-      render(employeeRoster, (err) => {
-        if (err) {
-          console.log("There was an error!");
-        } else {
-          console.log("File was made successfully!");
-        }
-      })
-    );
+    fs.writeFileSync(outputPath, render(employeeRoster), (err) => {
+      if (err) {
+        console.log("There was an error!");
+      } else {
+        console.log("File was made successfully!");
+      }
+    });
   } else {
-    fs.mkdirSync(outputPath);
-    fs.writeFileSync(
-      outputPath,
-      render(employeeRoster, (err) => {
-        if (err) {
-          console.log("There was an error!");
-        } else {
-          console.log("File was made successfully!");
-        }
-      })
-    );
+    fs.mkdir(outputPath, (err) => {
+      if (err) {
+        console.log("There was an error making the folder.");
+      } else {
+        console.log("Folder was made.");
+      }
+    });
+    fs.writeFileSync(outputPath, render(employeeRoster), (err) => {
+      if (err) {
+        console.log("There was an error!");
+      } else {
+        console.log("File was made successfully!");
+      }
+    });
   }
 }
 
