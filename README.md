@@ -1,4 +1,4 @@
-## **Good README Generator**
+## **Team Generator - CLI**
 
 ---
 
