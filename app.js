@@ -189,7 +189,7 @@ function renderEmployee(employeeRoster) {
       }
     });
   } else {
-    fs.mkdir(outputPath, (err) => {
+    fs.mkdir(OUTPUT_DIR, (err) => {
       if (err) {
         console.log("There was an error making the folder.");
       } else {
