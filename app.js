@@ -69,7 +69,7 @@ function makeManager(employeeRoster) {
 }
 
 // Make employee makes either an engineer or intern, or stops the making employee process.
-
+// Function feeds into itself, till you select stop.
 function makeEmployee(employeeRoster) {
   inquirer
     .prompt([
@@ -180,6 +180,7 @@ function makeEmployee(employeeRoster) {
 // Function to render the information into html.
 function renderEmployee(employeeRoster) {
   console.log(employeeRoster);
+  // Checking if a directory is there and then writing if so.
   if (fs.existsSync(outputPath)) {
     fs.writeFileSync(outputPath, render(employeeRoster), (err) => {
       if (err) {
@@ -189,6 +190,7 @@ function renderEmployee(employeeRoster) {
       }
     });
   } else {
+    // Making a directory and then writing into it.
     fs.mkdir(OUTPUT_DIR, (err) => {
       if (err) {
         console.log("There was an error making the folder.");

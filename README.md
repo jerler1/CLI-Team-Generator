@@ -17,34 +17,30 @@
 ---
 
 The steps you need to take to install this are:
-
-1. Figure out what your read me needs to look like.
-1. Install dependencies which must include inquirer.
-1. Write the questions for the user to be prompted by inquirer.
-1. Make functions to return the values for each section of the README.
-1. Assemble the returns into a file and then write it to the markdown file.
+1. Package.json is available.  Pull down from github and perform npm install.
+2. Run app.js.
 
 #### **Trials**
 
 ---
 
-This project taught me how to use export.module extremely well. You can export many functions at once with {} around them. In addition, I learned how to use inquirer quite well. The when function is truly amazing and versatile.
+Learning how to use regular expressions to validate the inputs from the user was fascinating.
 
 #### **Usage**
 
 ---
 
-The usage of this CLI is fairly simple. You start with a command prompt.
-Start the program and follow the prompts. Enter values as you wish. If you select no to a section, that section will not be produced. Once all the prompts have been answered a file named how you chose will populate.
-![picture of the app](./utils/Images/screenshot.png)
-The GitHub is deployed [here](https://github.com/jerler1/README-Generator).
-Video is [here](https://drive.google.com/file/d/1-wcmLxNJa7t3M1FPF-5thgqAhxE2hGxv/view).
+The usage of this command line interface is fairly simple. You start with a command prompt.
+Start the program and follow the prompts. Enter values as you wish. Once all the prompts have been answered a file will populate in the output folder.
+![picture of the output](./lib/team.png)
+The GitHub is deployed [here](https://github.com/jerler1/CLI-Team-Generator)
+Video is [here](https://drive.google.com/file/d/1MUx6J5JxxBszbX-3nafd6KZSbsHviUT2/view).
 
 #### **Credits**
 
 ---
 
-
+Thanks to Jeanna-Rose, Tony, and Bradley for the help with finding bugs.
 
 #### **License**
 
