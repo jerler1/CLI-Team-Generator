@@ -169,7 +169,7 @@ function makeEmployee(employeeRoster) {
           response.name,
           response.id,
           response.email,
-          response.school
+          response.github
         );
         employeeRoster.push(newEngineer);
         makeEmployee(employeeRoster);

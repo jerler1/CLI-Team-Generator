@@ -1,0 +1,23 @@
+.header {
+  color: white;
+}
+.card {
+  border: none;
+  /* margin: 10px, 20px 10px, 20px; */
+}
+
+.card-header {
+  background-color: #443730;
+  color: white;
+}
+
+.card-body {
+  background-color: #786452;
+}
+
+body {
+  background-color: #f7dad9;
+}
+.jumbo {
+  background-color: #550c18;
+}
